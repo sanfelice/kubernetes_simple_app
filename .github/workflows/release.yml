@@ -12,4 +12,9 @@ jobs:
         distribution: 'adopt'
         java-version: '17'
         cache: 'gradle'
-    - run: ./gradlew clean build jib -Djib.to.auth.password=${{secrets.DOCKER_TOKEN}} -Djib.to.tags=$(echo ${GITHUB_REF#refs/heads/})
+    - run: ./gradlew clean build
+  docker:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Create docker image
+          run: ./gradlew jib -Djib.to.auth.username=ricardosanfelice -Djib.to.auth.password=${{secrets.DOCKER_TOKEN}} -Djib.to.tags=$(echo ${GITHUB_REF#refs/heads/})
