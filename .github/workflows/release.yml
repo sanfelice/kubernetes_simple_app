@@ -12,4 +12,4 @@ jobs:
         distribution: 'adopt'
         java-version: '17'
         cache: 'gradle'
-    - run: ./gradlew clean build jib -Djib.to.auth.password=${{secrets.DOCKER_TOKEN}} -jib.to.tags=$(echo ${GITHUB_REF#refs/heads/})
+    - run: ./gradlew clean build jib -Djib.to.auth.password=${{secrets.DOCKER_TOKEN}} -Djib.to.tags=$(echo ${GITHUB_REF#refs/heads/})
