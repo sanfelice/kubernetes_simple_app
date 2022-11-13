@@ -1,0 +1,9 @@
+name: feature_deploy  
+on: workflow_dispatch
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out repository code
+      uses: actions/checkout@v3
+    - run: ./gradlew clean build jib -Djib.to.auth.password=${{secrets.DOCKER_TOKEN}}

@@ -2,11 +2,20 @@ plugins {
 	id 'org.springframework.boot' version '2.7.5'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
 	id 'java'
+	id 'com.google.cloud.tools.jib' version '3.3.1'
 }
 
 group = 'com.sanfelice.techtalk'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.2-SNAPSHOT'
 sourceCompatibility = '17'
+
+jib.to {
+	image = "ricardosanfelice/${rootProject.name}"
+//	tags = [version, "latest"]
+	auth {
+		username = "ricardosanfelice"
+	}
+}
 
 configurations {
 	compileOnly {
@@ -29,4 +38,14 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+task getVersion {
+	// any code that goes here is part of configuring the task
+	// this code will always get run, even if the task is not executed
+	doLast { // add a task action
+		// any code that goes here is part of executing the task
+		// this code will only get run if and when the task gets executed
+		println project.version
+	}
 }
