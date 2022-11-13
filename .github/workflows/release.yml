@@ -14,7 +14,8 @@ jobs:
         cache: 'gradle'
     - run: ./gradlew clean build
   docker:
-      runs-on: ubuntu-latest
-      steps:
-        - name: Create docker image
-          run: ./gradlew jib -Djib.to.auth.username=ricardosanfelice -Djib.to.auth.password=${{secrets.DOCKER_TOKEN}} -Djib.to.tags=$(echo ${GITHUB_REF#refs/heads/})
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create docker image
+        run: ./gradlew jib -Djib.to.auth.username=ricardosanfelice -Djib.to.auth.password=${{secrets.DOCKER_TOKEN}} -Djib.to.tags=$(echo ${GITHUB_REF#refs/heads/})
