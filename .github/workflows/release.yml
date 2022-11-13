@@ -19,5 +19,11 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'adopt'
+          java-version: '17'
+          cache: 'gradle'
       - name: Create docker image
         run: ./gradlew jib -Djib.to.auth.username=ricardosanfelice -Djib.to.auth.password=${{secrets.DOCKER_TOKEN}} -Djib.to.tags=$(echo ${GITHUB_REF#refs/heads/})
