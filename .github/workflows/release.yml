@@ -6,4 +6,10 @@ jobs:
     steps:
     - name: Check out repository code
       uses: actions/checkout@v3
-    - run: ./gradlew clean build jib -Djib.to.auth.password=${{secrets.DOCKER_TOKEN}}
+    - name: Setup Java
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'adopt'
+        java-version: '17'
+        cache: 'gradle'
+    - run: ./gradlew clean build jib -Djib.to.auth.password=${{secrets.DOCKER_TOKEN}} -jib.to.tags=$(echo ${GITHUB_REF#refs/heads/})
