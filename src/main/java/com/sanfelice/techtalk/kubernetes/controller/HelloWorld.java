@@ -11,6 +11,8 @@ public class HelloWorld {
 
     @GetMapping
     public String index() throws UnknownHostException {
-        return "Response from pod %s".formatted(System.getenv("MY_POD_ID"));
+        return "Response from pod %s on env %s".formatted(
+            System.getenv("MY_POD_ID"),
+            System.getenv("ENV_NAME"));
     }
 }
